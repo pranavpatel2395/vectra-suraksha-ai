@@ -1,0 +1,364 @@
+/* Vectra Jansadak Suraksha AI - Command Center Dark Theme */
+
+:root {
+  --bg-primary: #070b14;
+  --bg-dark: #0b1120;
+  --bg-card: #0f172a;
+  --bg-card-hover: #131e36;
+  --border-subtle: #1e293b;
+  --border-bright: #2a3b5c;
+  --cctv-blue: #38bdf8;
+  --road-green: #22c55e;
+  --bus-purple: #a855f7;
+  --warn-yellow: #f59e0b;
+  --alert-red: #ef4444;
+  --info-cyan: #06b6d4;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(11, 17, 32, 0.7);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(56, 189, 248, 0.25);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(56, 189, 248, 0.45);
+}
+
+/* Tactical Background Grid Pattern */
+.tactical-grid {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(30, 41, 59, 0.3) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(30, 41, 59, 0.3) 1px, transparent 1px);
+}
+
+.tactical-dots {
+  background-image: radial-gradient(rgba(56, 189, 248, 0.15) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Command Center Card Glass & Borders */
+.command-card {
+  background-color: #0f172a;
+  border: 1px solid #1e293b;
+  border-radius: 0.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.command-card:hover {
+  border-color: #2a3b5c;
+}
+
+.command-card-glow-blue {
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.08);
+}
+
+.command-card-glow-green {
+  box-shadow: 0 0 15px rgba(34, 197, 94, 0.08);
+}
+
+.command-card-glow-purple {
+  box-shadow: 0 0 15px rgba(168, 85, 247, 0.08);
+}
+
+.command-card-glow-red {
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.12);
+}
+
+/* Live Badge Pulsing */
+.badge-live {
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #f87171;
+}
+
+.badge-live-dot {
+  background-color: #ef4444;
+  box-shadow: 0 0 8px #ef4444;
+}
+
+.badge-cctv {
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  color: #38bdf8;
+}
+
+.badge-bus {
+  background: rgba(168, 85, 247, 0.12);
+  border: 1px solid rgba(168, 85, 247, 0.35);
+  color: #c084fc;
+}
+
+.badge-road {
+  background: rgba(34, 197, 94, 0.12);
+  border: 1px solid rgba(34, 197, 94, 0.35);
+  color: #4ade80;
+}
+
+.badge-warn {
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  color: #fbbf24;
+}
+
+/* CCTV Video Overlay Elements */
+.cctv-scanline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(to right, transparent, rgba(56, 189, 248, 0.6), transparent);
+  animation: scanline 4s linear infinite;
+  pointer-events: none;
+}
+
+.cctv-vignette {
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.7);
+}
+
+/* Map Node Markers & Cones */
+.map-radar-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  animation: ping 2.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* Bounding Box Visuals */
+.ai-bbox {
+  position: absolute;
+  border: 1.5px solid #38bdf8;
+  background: rgba(56, 189, 248, 0.08);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: #38bdf8;
+  pointer-events: none;
+}
+
+.ai-bbox-critical {
+  border-color: #ef4444;
+  background: rgba(239, 68, 68, 0.12);
+  color: #f87171;
+}
+
+.ai-bbox-warn {
+  border-color: #f59e0b;
+  background: rgba(245, 158, 11, 0.12);
+  color: #fbbf24;
+}
+
+/* Glow Utilities */
+.glow-text-cyan {
+  text-shadow: 0 0 8px rgba(6, 182, 212, 0.5);
+}
+.glow-text-green {
+  text-shadow: 0 0 8px rgba(34, 197, 94, 0.5);
+}
+.glow-text-red {
+  text-shadow: 0 0 8px rgba(239, 68, 68, 0.5);
+}
+
+/* Keyframes */
+@keyframes scanline {
+  0% { transform: translateY(-10px); }
+  100% { transform: translateY(240px); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.08); }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 2.5s ease-in-out infinite;
+}
+/* =========================================================
+   DASHBOARD COMMAND CENTER - RIGID 12-COLUMN GRID SYSTEM
+   Guarantees zero overlapping, uniform 12px gaps, and aligned bottom edges
+   ========================================================= */
+
+.dashboard-row {
+  display: grid !important;
+  grid-template-columns: repeat(12, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+  width: 100% !important;
+  align-items: stretch !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* Ensure row direct containers stretch to full height of row */
+#dashboard-cctv-container,
+#dashboard-map-container,
+#dashboard-road-sensing-container,
+#dashboard-vehicle-container,
+#dashboard-alerts-container {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* Ensure inner command cards fill container cleanly and distribute content */
+#dashboard-cctv-container > .command-card,
+#dashboard-map-container > .command-card,
+#dashboard-road-sensing-container > .command-card,
+#dashboard-alerts-container > .command-card {
+  height: 100% !important;
+  min-height: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  box-sizing: border-box !important;
+}
+
+/* Row 2: CCTV (4 cols) | GIS Map (5 cols) | Road Sensing (3 cols) */
+#dashboard-cctv-container {
+  grid-column: span 4 / span 4 !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+}
+
+#dashboard-map-container {
+  grid-column: span 5 / span 5 !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+}
+
+#dashboard-road-sensing-container {
+  grid-column: span 3 / span 3 !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* Row 3: Vehicle Search & Trajectory (9 cols) | Alerts Panel (3 cols) */
+#dashboard-vehicle-container {
+  grid-column: span 9 / span 9 !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+}
+
+#dashboard-alerts-container {
+  grid-column: span 3 / span 3 !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* Rows 4 & 5: Full Width (12 cols) */
+#dashboard-analytics-container,
+#dashboard-ai-container {
+  grid-column: span 12 / span 12 !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* Component children must fill container without exceeding it */
+#dashboard-cctv-container > *,
+#dashboard-map-container > *,
+#dashboard-road-sensing-container > *,
+#dashboard-vehicle-container > *,
+#dashboard-alerts-container > *,
+#dashboard-analytics-container > *,
+#dashboard-ai-container > * {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* Responsive collapse on smaller screens */
+@media (max-width: 1100px) {
+  .dashboard-row {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  #dashboard-cctv-container,
+  #dashboard-map-container,
+  #dashboard-road-sensing-container,
+  #dashboard-vehicle-container,
+  #dashboard-alerts-container,
+  #dashboard-analytics-container,
+  #dashboard-ai-container {
+    grid-column: 1 / -1 !important;
+    height: auto !important;
+  }
+}
+
+/* =========================================================
+   GIS MAP VIEWPORT & CANVASES
+   ========================================================= */
+
+#dashboard-map-container #gis-map-wrapper,
+#gis-map-wrapper {
+  height: 400px !important;
+  min-height: 400px !important;
+  max-height: 400px !important;
+  position: relative !important;
+  overflow: hidden !important;
+  border-radius: 6px !important;
+  background-color: #050811 !important;
+  cursor: grab;
+}
+
+#fullscreen-map-wrapper #gis-map-wrapper {
+  height: 100% !important;
+  min-height: 520px !important;
+  max-height: none !important;
+  flex: 1 1 auto !important;
+}
+
+#gis-map-wrapper:active {
+  cursor: grabbing;
+}
+
+#gis-canvas,
+#gis-svg-overlay {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+}
+
+/* =========================================================
+   CCTV CARD & ZERO-DISTORTION 16:9 ASPECT RATIO
+   ========================================================= */
+
+.cctv-feed-frame {
+  width: 100% !important;
+  aspect-ratio: 16 / 9 !important;
+  position: relative !important;
+  overflow: hidden !important;
+  border-radius: 6px !important;
+  background-color: #060a14 !important;
+  border: 1px solid #1e293b;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6);
+}
+
+.cctv-feed-frame canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  aspect-ratio: 16 / 9 !important;
+  object-fit: cover !important;
+}

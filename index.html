@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vectra Jansadak Suraksha AI | Traffic & Road Intelligence Platform</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            'command-bg': '#070b14',
+            'command-dark': '#0b1120',
+            'command-card': '#0f172a',
+            'command-card-hover': '#131e36',
+            'command-border': '#1e293b',
+            'command-border-bright': '#2a3b5c',
+            'cctv-blue': '#38bdf8',
+            'road-green': '#22c55e',
+            'bus-purple': '#a855f7',
+            'warn-yellow': '#f59e0b',
+            'alert-red': '#ef4444',
+            'info-cyan': '#06b6d4'
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          },
+          animation: {
+            'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'radar-sweep': 'radarSweep 4s linear infinite',
+            'scanline': 'scanline 6s linear infinite',
+            'glow-pulse': 'glowPulse 2s ease-in-out infinite'
+          },
+          keyframes: {
+            radarSweep: {
+              '0%': { transform: 'rotate(0deg)' },
+              '100%': { transform: 'rotate(360deg)' }
+            },
+            scanline: {
+              '0%': { transform: 'translateY(-100%)' },
+              '100%': { transform: 'translateY(1000%)' }
+            },
+            glowPulse: {
+              '0%, 100%': { opacity: 0.4 },
+              '50%': { opacity: 0.9 }
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons with Fallback -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    // Fallback if Lucide CDN is blocked or delayed
+    window.addEventListener('error', function(e) {
+      if (e.target && e.target.src && e.target.src.includes('lucide')) {
+        console.warn('Lucide CDN failed, initializing mock icon renderer');
+        window.lucide = {
+          createIcons: function() {
+            document.querySelectorAll('[data-lucide]').forEach(function(el) {
+              if (!el.innerHTML) {
+                el.innerHTML = '●';
+                el.style.display = 'inline-flex';
+                el.style.alignItems = 'center';
+                el.style.justifyContent = 'center';
+                el.style.fontSize = '10px';
+              }
+            });
+          }
+        };
+      }
+    }, true);
+  </script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-[#070b14] text-slate-100 font-sans min-h-screen flex flex-col overflow-x-hidden antialiased select-none">
+
+  <!-- Main App Shell -->
+  <div id="app" class="flex flex-1 min-h-screen">
+    
+    <!-- LEFT SIDEBAR -->
+    <aside id="sidebar-container" class="w-64 bg-[#0b1120] border-r border-[#1e293b] flex flex-col flex-shrink-0 z-30 transition-all duration-300"></aside>
+
+    <!-- MAIN CONTENT AREA -->
+    <div class="flex-1 flex flex-col min-w-0 bg-[#070b14]">
+      
+      <!-- TOP HEADER -->
+      <header id="header-container" class="bg-[#0b1120]/95 backdrop-blur-md border-b border-[#1e293b] sticky top-0 z-20 px-5 py-2.5 flex items-center justify-between"></header>
+
+      <!-- VIEW CONTAINER -->
+      <main id="main-view-container" class="flex-1 p-3 lg:p-3.5 overflow-y-auto space-y-3"></main>
+
+      <!-- GLOBAL FOOTER DISCLAIMER -->
+      <footer class="px-5 py-2 text-center text-xs text-slate-500 border-t border-[#1e293b]/60 bg-[#0b1120]/80 flex items-center justify-between">
+        <span>All data is simulated for prototype demonstration purposes only.</span>
+        <span class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span>Vectra Jansadak Suraksha AI • Version 2.4.0 (Edge-Connected)</span>
+        </span>
+      </footer>
+    </div>
+  </div>
+
+  <!-- MODAL / TOAST / INSPECTOR CONTAINER -->
+  <div id="modal-container" class="fixed inset-0 pointer-events-none z-50 flex items-center justify-center"></div>
+  <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col space-y-2 pointer-events-none"></div>
+
+  <!-- Audio Synthesizer for Tactical Control Room Pings -->
+  <script>
+    class SoundEngine {
+      constructor() {
+        this.ctx = null;
+        this.muted = false;
+      }
+      init() {
+        if (!this.ctx) {
+          try {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            this.ctx = new AudioContext();
+          } catch (e) {
+            console.warn('Web Audio not supported');
+          }
+        }
+      }
+      playAlert(type = 'info') {
+        if (this.muted) return;
+        this.init();
+        if (!this.ctx) return;
+        if (this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+
+        if (type === 'critical') {
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(880, now);
+          osc.frequency.exponentialRampToValueAtTime(440, now + 0.25);
+          gain.gain.setValueAtTime(0.12, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+          osc.start(now);
+          osc.stop(now + 0.25);
+        } else if (type === 'warning') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(600, now);
+          osc.frequency.exponentialRampToValueAtTime(750, now + 0.15);
+          gain.gain.setValueAtTime(0.08, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+          osc.start(now);
+          osc.stop(now + 0.15);
+        } else {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(520, now);
+          gain.gain.setValueAtTime(0.05, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+          osc.start(now);
+          osc.stop(now + 0.1);
+        }
+      }
+    }
+    window.soundEngine = new SoundEngine();
+  </script>
+
+  <!-- Application Modules -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
