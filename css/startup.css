@@ -1,0 +1,469 @@
+/* ==========================================================================
+   Vectra Jansadak Suraksha AI - Startup Loading Screen Styles
+   Strictly isolated styling for the pre-launch initialization overlay.
+   ========================================================================== */
+
+#vectra-startup-screen {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99999;
+  background-color: #050811;
+  background-image: 
+    radial-gradient(circle at 50% 40%, rgba(6, 182, 212, 0.12) 0%, transparent 60%),
+    radial-gradient(circle at 50% 85%, rgba(14, 165, 233, 0.08) 0%, transparent 50%),
+    url('../assets/images/startup-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
+  user-select: none;
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.65s ease;
+  font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+}
+
+#vectra-startup-screen.fade-out {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+#vectra-startup-screen.hidden {
+  display: none !important;
+}
+
+/* Subtle Animated Road Horizon Glow */
+.startup-horizon-glow {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 35vh;
+  background: linear-gradient(to top, rgba(5, 8, 17, 0.3) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+/* Central Branding Container */
+.startup-content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 90vw;
+  transform: translateY(-2vh);
+}
+
+/* Logo with Breathing Ambient Glow */
+.startup-logo-wrapper {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 640px) {
+  .startup-logo-wrapper {
+    width: 124px;
+    height: 124px;
+    margin-bottom: 24px;
+  }
+}
+
+.startup-logo-glow {
+  position: absolute;
+  inset: -12px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.35) 0%, rgba(37, 99, 235, 0.15) 50%, transparent 70%);
+  filter: blur(14px);
+  animation: startupPulse 3s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+.startup-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 0 16px rgba(56, 189, 248, 0.45));
+  animation: startupFloat 4s ease-in-out infinite;
+}
+
+/* VECTRA Brand Title */
+.startup-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: 0.35em;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  text-shadow: 0 0 24px rgba(255, 255, 255, 0.25), 0 0 45px rgba(56, 189, 248, 0.2);
+}
+
+@media (min-width: 640px) {
+  .startup-title-row {
+    font-size: 2.75rem;
+    letter-spacing: 0.4em;
+  }
+}
+
+/* Letter 'E' with Indian Tricolor Bars */
+.startup-tricolor-e {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 0.65em;
+  height: 0.75em;
+  vertical-align: middle;
+  margin: 0 0.08em;
+}
+
+.startup-tricolor-e .bar-saffron {
+  width: 100%;
+  height: 24%;
+  background: #ff9933;
+  border-radius: 1px;
+  box-shadow: 0 0 8px rgba(255, 153, 51, 0.6);
+}
+
+.startup-tricolor-e .bar-white {
+  width: 78%;
+  height: 24%;
+  background: #ffffff;
+  border-radius: 1px;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+}
+
+.startup-tricolor-e .bar-green {
+  width: 100%;
+  height: 24%;
+  background: #138808;
+  border-radius: 1px;
+  box-shadow: 0 0 8px rgba(19, 136, 8, 0.6);
+}
+
+/* JANSADAK SURAKSHA AI Subtitle */
+.startup-subtitle {
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  color: #cbd5e1;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+@media (min-width: 640px) {
+  .startup-subtitle {
+    font-size: 0.95rem;
+    letter-spacing: 0.3em;
+  }
+}
+
+/* Slogan Divider with Dots */
+.startup-slogan-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  color: #94a3b8;
+  text-transform: uppercase;
+  margin-bottom: 34px;
+}
+
+@media (min-width: 640px) {
+  .startup-slogan-bar {
+    font-size: 0.75rem;
+    gap: 16px;
+    letter-spacing: 0.28em;
+  }
+}
+
+.startup-slogan-bar .line {
+  width: 28px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(148, 163, 184, 0.4), transparent);
+}
+
+.startup-slogan-bar .dot-amber {
+  color: #f59e0b;
+  text-shadow: 0 0 8px rgba(245, 158, 11, 0.6);
+}
+
+.startup-slogan-bar .dot-green {
+  color: #10b981;
+  text-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
+}
+
+/* Rotating Dynamic Status Message */
+.startup-status-msg {
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: #f1f5f9;
+  letter-spacing: 0.05em;
+  margin-bottom: 16px;
+  min-height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  text-shadow: 0 0 12px rgba(56, 189, 248, 0.35);
+}
+
+@media (min-width: 640px) {
+  .startup-status-msg {
+    font-size: 1rem;
+    margin-bottom: 18px;
+  }
+}
+
+/* Progress Bar & Percentage Row */
+.startup-progress-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 440px;
+  margin-bottom: 36px;
+}
+
+.startup-progress-track {
+  flex: 1;
+  height: 9px;
+  border-radius: 9999px;
+  background: rgba(30, 41, 59, 0.65);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  position: relative;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.startup-progress-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #2563eb 0%, #06b6d4 55%, #10b981 100%);
+  box-shadow: 0 0 16px rgba(6, 182, 212, 0.65), 0 0 28px rgba(16, 185, 129, 0.35);
+  transition: width 0.08s linear;
+}
+
+.startup-progress-pct {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #f8fafc;
+  min-width: 42px;
+  text-align: right;
+  text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+}
+
+/* 4 Feature Indicator Badges */
+.startup-features-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  width: 100%;
+  max-width: 540px;
+}
+
+@media (min-width: 640px) {
+  .startup-features-grid {
+    gap: 28px;
+    max-width: 620px;
+  }
+}
+
+.startup-feature-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.35;
+  filter: grayscale(80%);
+  transform: translateY(0);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.startup-feature-item.active {
+  opacity: 1;
+  filter: grayscale(0%);
+  transform: translateY(-2px);
+}
+
+.startup-feature-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94a3b8;
+  transition: all 0.3s ease;
+}
+
+.startup-feature-item.active .startup-feature-icon {
+  background: rgba(6, 182, 212, 0.15);
+  border-color: rgba(6, 182, 212, 0.6);
+  color: #38bdf8;
+  box-shadow: 0 0 16px rgba(6, 182, 212, 0.4);
+}
+
+.startup-feature-label {
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: #94a3b8;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color 0.3s ease;
+}
+
+@media (min-width: 640px) {
+  .startup-feature-label {
+    font-size: 0.72rem;
+  }
+}
+
+.startup-feature-item.active .startup-feature-label {
+  color: #f1f5f9;
+  text-shadow: 0 0 8px rgba(56, 189, 248, 0.4);
+}
+
+/* Ambient Corner Branding & Slogans */
+.startup-ambient-corner {
+  position: absolute;
+  font-size: 0.7rem;
+  line-height: 1.45;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #64748b;
+  font-weight: 600;
+  pointer-events: none;
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .startup-ambient-corner {
+    display: block;
+  }
+}
+
+.startup-ambient-corner.top-left {
+  top: 36px;
+  left: 40px;
+  border-left: 2px solid #0284c7;
+  padding-left: 12px;
+}
+
+.startup-ambient-corner.top-right {
+  top: 36px;
+  right: 40px;
+  text-align: right;
+  border-right: 2px solid #0284c7;
+  padding-right: 12px;
+}
+
+.startup-ambient-corner.bottom-left {
+  bottom: 36px;
+  left: 40px;
+  border-left: 2px solid #0284c7;
+  padding-left: 12px;
+}
+
+.startup-ambient-corner.bottom-right {
+  bottom: 36px;
+  right: 40px;
+  text-align: right;
+}
+
+.startup-safer-india-text {
+  font-family: 'Segoe Script', 'Brush Script MT', cursive, sans-serif;
+  font-size: 1.4rem;
+  color: #f8fafc;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  font-style: italic;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.startup-tricolor-line {
+  width: 90px;
+  height: 2.5px;
+  margin-top: 4px;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #ff9933 0%, #ffffff 50%, #138808 100%);
+  box-shadow: 0 0 10px rgba(255, 153, 51, 0.4);
+}
+
+.startup-ambient-corner.mid-right {
+  right: 40px;
+  top: 48%;
+  transform: translateY(-50%);
+  text-align: right;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: #475569;
+}
+
+.startup-ambient-corner.mid-right .active-prog {
+  color: #0284c7;
+  font-weight: 700;
+}
+
+/* Keyframe Animations */
+@keyframes startupFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes startupPulse {
+  0% {
+    opacity: 0.6;
+    transform: scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+}
+
+/* Accessibility: Prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  #vectra-startup-screen {
+    transition: opacity 0.2s ease;
+  }
+  .startup-logo-glow,
+  .startup-logo-img {
+    animation: none !important;
+  }
+  .startup-progress-fill {
+    transition: none !important;
+  }
+}

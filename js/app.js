@@ -6,6 +6,7 @@ import { simulationEngine } from './data/simulationEngine.js';
 import { renderHeader } from './components/header.js';
 import { renderSidebar } from './components/sidebar.js';
 import { setupModals } from './components/modals.js';
+import { initStartupScreen } from './components/startupScreen.js';
 
 // Views
 import { renderDashboardView } from './views/dashboardView.js';
@@ -172,6 +173,10 @@ class VectraApp {
 // Immediate robust execution
 function startApp() {
   try {
+    // 1. Kick off pre-launch loading startup overlay
+    initStartupScreen();
+
+    // 2. Initialize application core underneath
     const app = new VectraApp();
     app.init();
     window.vectraApp = app;

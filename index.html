@@ -86,8 +86,143 @@
 
   <!-- Custom CSS -->
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/startup.css">
 </head>
 <body class="bg-[#070b14] text-slate-100 font-sans min-h-screen flex flex-col overflow-x-hidden antialiased select-none">
+
+  <!-- VECTRA FULL-SCREEN STARTUP LOADING OVERLAY -->
+  <div id="vectra-startup-screen" class="vectra-startup-screen">
+    <div class="startup-horizon-glow"></div>
+
+    <!-- Ambient Corner Slogans (matching reference image) -->
+    <div class="startup-ambient-corner top-left">
+      <div>INTELLIGENCE</div>
+      <div>FOR BETTER</div>
+      <div>ROADS</div>
+    </div>
+
+    <div class="startup-ambient-corner top-right">
+      <div>A SAFER</div>
+      <div>TOMORROW</div>
+      <div>TOGETHER</div>
+    </div>
+
+    <div class="startup-ambient-corner mid-right">
+      <div>• PEOPLE</div>
+      <div>• ROADS</div>
+      <div>• CITIES</div>
+      <div class="active-prog mt-1">— PROGRESS</div>
+    </div>
+
+    <div class="startup-ambient-corner bottom-left">
+      <div>DATA</div>
+      <div>TECHNOLOGY</div>
+      <div>SAFER COMMUNITIES</div>
+    </div>
+
+    <div class="startup-ambient-corner bottom-right">
+      <div class="startup-safer-india-text">
+        <span>for a Safer India</span>
+        <div class="startup-tricolor-line"></div>
+      </div>
+    </div>
+
+    <!-- Center Interactive Branding & Telemetry -->
+    <div class="startup-content">
+      <!-- Official Logo with Pulsing Ambient Glow -->
+      <div class="startup-logo-wrapper">
+        <div class="startup-logo-glow"></div>
+        <img src="assets/images/vectra-logo.png" alt="Vectra Logo" class="startup-logo-img" />
+      </div>
+
+      <!-- VECTRA with Indian Tricolor 'E' -->
+      <div class="startup-title-row">
+        <span>V</span>
+        <span class="startup-tricolor-e">
+          <span class="bar-saffron"></span>
+          <span class="bar-white"></span>
+          <span class="bar-green"></span>
+        </span>
+        <span>CTRA</span>
+      </div>
+
+      <!-- Subtitle -->
+      <div class="startup-subtitle">JANSADAK SURAKSHA AI</div>
+
+      <!-- Slogan Divider -->
+      <div class="startup-slogan-bar">
+        <span class="line"></span>
+        <span>SAFER ROADS</span>
+        <span class="dot-amber">•</span>
+        <span>SMARTER CITIES</span>
+        <span class="dot-green">•</span>
+        <span>INTELLIGENT FUTURE</span>
+        <span class="line"></span>
+      </div>
+
+      <!-- Dynamic Initialization Status -->
+      <div id="startup-status-msg" class="startup-status-msg">Loading a Safer Tomorrow...</div>
+
+      <!-- Horizontal Progress Bar -->
+      <div class="startup-progress-row">
+        <div class="startup-progress-track">
+          <div id="startup-progress-fill" class="startup-progress-fill"></div>
+        </div>
+        <div id="startup-progress-pct" class="startup-progress-pct">0%</div>
+      </div>
+
+      <!-- 4 Feature Indicators (with minimal line icons) -->
+      <div class="startup-features-grid">
+        <!-- 1. CCTV Monitoring -->
+        <div id="feat-cctv" class="startup-feature-item">
+          <div class="startup-feature-icon">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/>
+              <circle cx="12" cy="13" r="3"/>
+            </svg>
+          </div>
+          <span class="startup-feature-label">CCTV MONITORING</span>
+        </div>
+
+        <!-- 2. ANPR Intelligence -->
+        <div id="feat-anpr" class="startup-feature-item">
+          <div class="startup-feature-icon">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="20" height="12" x="2" y="6" rx="2"/>
+              <path d="M7 10h1v4H7zm4 0h1v4h-1zm4 0h2a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1h-2v4z"/>
+            </svg>
+          </div>
+          <span class="startup-feature-label">ANPR INTELLIGENCE</span>
+        </div>
+
+        <!-- 3. Road Health Sensing -->
+        <div id="feat-road" class="startup-feature-item">
+          <div class="startup-feature-icon">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m4 19 4-14h8l4 14"/>
+              <path d="M12 5v2"/>
+              <path d="M12 11v3"/>
+              <path d="M12 18v2"/>
+            </svg>
+          </div>
+          <span class="startup-feature-label">ROAD HEALTH SENSING</span>
+        </div>
+
+        <!-- 4. City Analytics -->
+        <div id="feat-analytics" class="startup-feature-item">
+          <div class="startup-feature-icon">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 3v18h18"/>
+              <path d="M18 17V9"/>
+              <path d="M13 17V5"/>
+              <path d="M8 17v-3"/>
+            </svg>
+          </div>
+          <span class="startup-feature-label">CITY ANALYTICS</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Main App Shell -->
   <div id="app" class="flex flex-1 min-h-screen">
