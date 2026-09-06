@@ -15,7 +15,12 @@ export function renderHeader(container) {
     const dateStr = '28 Aug 2026';
 
     container.innerHTML = `
-      <div class="flex items-center gap-4">
+      <div class="flex items-center gap-3 sm:gap-4">
+        <!-- Hamburger Sidebar Toggle Button -->
+        <button id="btn-sidebar-toggle" class="p-1.5 rounded-md bg-command-card border border-command-border text-slate-300 hover:text-white hover:border-cctv-blue transition-all duration-200 flex items-center justify-center shadow-sm hover:shadow-blue-900/30" title="Toggle Sidebar Navigation">
+          <i data-lucide="menu" class="w-4 h-4"></i>
+        </button>
+
         <!-- Area Selector Dropdown -->
         <div class="flex items-center gap-2">
           <label for="header-area-select" class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Area:</label>
@@ -75,6 +80,15 @@ export function renderHeader(container) {
     if (window.lucide && typeof window.lucide.createIcons === "function") { try { window.lucide.createIcons(); } catch (e) {} }
 
     // Event Bindings
+    const toggleBtn = container.querySelector('#btn-sidebar-toggle');
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', () => {
+        if (typeof window.toggleSidebar === 'function') {
+          window.toggleSidebar();
+        }
+      });
+    }
+
     const areaSelect = container.querySelector('#header-area-select');
     if (areaSelect) {
       areaSelect.addEventListener('change', (e) => {

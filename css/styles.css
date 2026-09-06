@@ -362,3 +362,57 @@
   aspect-ratio: 16 / 9 !important;
   object-fit: cover !important;
 }
+
+/* =========================================================
+   COLLAPSIBLE SIDEBAR & SMOOTH SLIDE DRAWER
+   ========================================================= */
+
+#sidebar-container {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              margin-left 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  will-change: transform, margin-left;
+}
+
+/* Desktop: Smooth Slide-Out Collapse */
+@media (min-width: 1024px) {
+  #sidebar-container.collapsed {
+    margin-left: -16rem !important; /* -256px (w-64) */
+    pointer-events: none !important;
+  }
+}
+
+/* Mobile & Tablet: Off-Canvas Slide-In Drawer */
+@media (max-width: 1023px) {
+  #sidebar-container {
+    position: fixed !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    height: 100vh !important;
+    z-index: 50 !important;
+    transform: translateX(-100%) !important;
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.8) !important;
+  }
+  #sidebar-container.drawer-open {
+    transform: translateX(0) !important;
+  }
+}
+
+/* Drawer Backdrop Blur Overlay for Mobile/Tablet */
+#sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 8, 17, 0.65);
+  backdrop-filter: blur(4px);
+  z-index: 45;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  pointer-events: none;
+}
+
+#sidebar-backdrop.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}

@@ -44,6 +44,10 @@ export function renderSidebar(container, currentView = 'dashboard') {
           <h1 class="text-sm font-bold text-white tracking-tight leading-tight truncate">Vectra Jansadak Suraksha AI</h1>
           <p class="text-[10px] text-slate-400 leading-tight mt-0.5">AI-powered city traffic, vehicle and road intelligence platform</p>
         </div>
+        <!-- Collapse / Close Drawer Button -->
+        <button id="btn-sidebar-close" class="text-slate-400 hover:text-white p-1 rounded-md hover:bg-slate-800 transition-colors flex-shrink-0 -mr-1" title="Collapse Sidebar Navigation">
+          <i data-lucide="chevrons-left" class="w-4 h-4"></i>
+        </button>
       </div>
     </div>
 
@@ -124,11 +128,23 @@ export function renderSidebar(container, currentView = 'dashboard') {
   // Re-initialize Lucide Icons
   if (window.lucide && typeof window.lucide.createIcons === "function") { try { window.lucide.createIcons(); } catch (e) {} }
 
+  // Collapse / Close button inside sidebar header
+  const closeBtn = container.querySelector('#btn-sidebar-close');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+      if (typeof window.toggleSidebar === 'function') window.toggleSidebar();
+    });
+  }
+
   // Event handlers for navigation
   container.querySelectorAll('[data-nav-id]').forEach(btn => {
     btn.addEventListener('click', () => {
       const viewId = btn.getAttribute('data-nav-id');
       if (window.navigateTo) window.navigateTo(viewId);
+      // Auto-slide drawer closed on mobile/tablet when navigation occurs
+      if (window.innerWidth < 1024 && typeof window.closeSidebar === 'function') {
+        window.closeSidebar();
+      }
     });
   });
 
@@ -142,4 +158,76 @@ export function renderSidebar(container, currentView = 'dashboard') {
       }
     });
   });
+
+  // Initialize global drawer controller
+  setupSidebarDrawer();
+}
+
+/**
+ * Global drawer & collapsible controller
+ */
+let drawerInitialized = false;
+export function setupSidebarDrawer() {
+  const sidebar = document.getElementById('sidebar-container');
+  const backdrop = document.getElementById('sidebar-backdrop');
+  if (!sidebar) return;
+
+  window.toggleSidebar = () => {
+    const isMobile = window.innerWidth < 1024;
+    if (isMobile) {
+      const isOpen = sidebar.classList.contains('drawer-open');
+      if (isOpen) {
+        sidebar.classList.remove('drawer-open');
+        if (backdrop) backdrop.classList.remove('active');
+      } else {
+        sidebar.classList.add('drawer-open');
+        if (backdrop) backdrop.classList.add('active');
+      }
+    } else {
+      const isCollapsed = sidebar.classList.contains('collapsed');
+      if (isCollapsed) {
+        sidebar.classList.remove('collapsed');
+        localStorage.setItem('vectra_sidebar_collapsed', 'false');
+      } else {
+        sidebar.classList.add('collapsed');
+        localStorage.setItem('vectra_sidebar_collapsed', 'true');
+      }
+    }
+  };
+
+  window.closeSidebar = () => {
+    const isMobile = window.innerWidth < 1024;
+    if (isMobile) {
+      sidebar.classList.remove('drawer-open');
+      if (backdrop) backdrop.classList.remove('active');
+    } else {
+      sidebar.classList.add('collapsed');
+      localStorage.setItem('vectra_sidebar_collapsed', 'true');
+    }
+  };
+
+  window.openSidebar = () => {
+    const isMobile = window.innerWidth < 1024;
+    if (isMobile) {
+      sidebar.classList.add('drawer-open');
+      if (backdrop) backdrop.classList.add('active');
+    } else {
+      sidebar.classList.remove('collapsed');
+      localStorage.setItem('vectra_sidebar_collapsed', 'false');
+    }
+  };
+
+  if (!drawerInitialized) {
+    drawerInitialized = true;
+    if (backdrop) {
+      backdrop.addEventListener('click', () => {
+        if (typeof window.closeSidebar === 'function') window.closeSidebar();
+      });
+    }
+
+    // Restore desktop preference on load
+    if (window.innerWidth >= 1024 && localStorage.getItem('vectra_sidebar_collapsed') === 'true') {
+      sidebar.classList.add('collapsed');
+    }
+  }
 }
