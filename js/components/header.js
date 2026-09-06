@@ -8,11 +8,15 @@ import { simulationEngine } from '../data/simulationEngine.js';
 export function renderHeader(container) {
   const state = simulationEngine.state;
 
+  function getFormattedDate(d = new Date()) {
+    return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+  }
+
   function update() {
     const isSimRunning = simulationEngine.isRunning;
     const now = new Date();
     const timeStr = now.toLocaleTimeString('en-US', { hour12: true, hour: '2-digit', minute: '2-digit', second: '2-digit' });
-    const dateStr = '28 Aug 2026';
+    const dateStr = getFormattedDate(now);
 
     container.innerHTML = `
       <div class="flex items-center gap-3 sm:gap-4">
@@ -49,7 +53,7 @@ export function renderHeader(container) {
         <!-- Live Clock & Date -->
         <div class="text-right border-r border-command-border pr-4 hidden sm:block">
           <div id="live-clock" class="font-mono font-semibold text-slate-200">${timeStr}</div>
-          <div class="text-[11px] text-slate-400">${dateStr}</div>
+          <div id="live-date" class="text-[11px] text-slate-400">${dateStr}</div>
         </div>
 
         <!-- Weather -->
@@ -116,11 +120,16 @@ export function renderHeader(container) {
     update();
   });
 
-  // Clock interval for seconds
+  // Clock interval for live seconds & dynamic date updating
   setInterval(() => {
+    const now = new Date();
     const clockEl = container.querySelector('#live-clock');
     if (clockEl) {
-      clockEl.textContent = new Date().toLocaleTimeString('en-US', { hour12: true, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      clockEl.textContent = now.toLocaleTimeString('en-US', { hour12: true, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    }
+    const dateEl = container.querySelector('#live-date');
+    if (dateEl) {
+      dateEl.textContent = getFormattedDate(now);
     }
   }, 1000);
 

@@ -120,7 +120,7 @@ export function renderSidebar(container, currentView = 'dashboard') {
         </div>
       </div>
       <div class="mt-2.5 px-1 text-[10px] text-slate-500 text-center font-mono">
-        © 2026 Vectra. Prototype build.
+        © ${new Date().getFullYear()} Vectra. Prototype build.
       </div>
     </div>
   `;

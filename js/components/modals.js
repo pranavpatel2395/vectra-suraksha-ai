@@ -135,15 +135,19 @@ export function setupModals() {
     });
 
     modalContainer.querySelector('#btn-modal-create-incident')?.addEventListener('click', () => {
+      const now = new Date();
+      const dateStr = now.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+      const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
       // Add incident to state
       const newInc = {
-        id: `INC-2026-${Math.floor(100 + Math.random() * 900)}`,
+        id: `INC-${now.getFullYear()}-${Math.floor(100 + Math.random() * 900)}`,
         type: `Hazard: ${issue.type}`,
         category: 'Road Hazard',
         source: `${issue.detectedBy} (${issue.areaName})`,
         area: issue.area,
         areaName: issue.areaName,
-        timestamp: new Date().toLocaleTimeString() + ', 28 Aug 2026',
+        timestamp: `${timeStr}, ${dateStr}`,
         gps: `${issue.lat}° N, ${issue.lng}° E`,
         confidence: `${issue.confidence}%`,
         severity: issue.severity,
@@ -356,6 +360,8 @@ export function setupModals() {
   window.openReportModal = (reportTitle, data) => {
     if (!modalContainer) return;
 
+    const reportDateStr = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+
     modalContainer.className = 'fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm pointer-events-auto';
     modalContainer.innerHTML = `
       <div class="bg-command-card border border-command-border-bright rounded-lg w-full max-w-2xl overflow-hidden shadow-2xl flex flex-col font-sans max-h-[85vh] animate-in fade-in zoom-in-95 duration-200">
@@ -366,7 +372,7 @@ export function setupModals() {
             </div>
             <div>
               <h3 class="text-sm font-bold text-white tracking-wide">${reportTitle}</h3>
-              <p class="text-[11px] text-slate-400">Generated: 28 Aug 2026 • Vectra Jansadak Suraksha AI</p>
+              <p class="text-[11px] text-slate-400">Generated: ${reportDateStr} • Vectra Jansadak Suraksha AI</p>
             </div>
           </div>
           <button id="btn-close-modal" class="text-slate-400 hover:text-white text-lg p-1">&times;</button>

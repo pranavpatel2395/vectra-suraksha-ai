@@ -184,11 +184,16 @@ function startCctvCanvasRenderers(cameras) {
       ctx.lineTo(width - 12, height - 12 - corner);
       ctx.stroke();
 
-      // Timestamp with Running Seconds
+      // Timestamp with Running Seconds & dynamic current date
       ctx.fillStyle = 'rgba(255, 255, 255, 0.65)';
       ctx.font = '9px "JetBrains Mono", monospace';
-      const nowStr = new Date().toISOString().slice(11, 19);
-      ctx.fillText(`REC • 28-AUG-2026 ${nowStr}`, 16, 24);
+      const now = new Date();
+      const day = String(now.getDate()).padStart(2, '0');
+      const monthNames = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+      const month = monthNames[now.getMonth()];
+      const year = now.getFullYear();
+      const nowStr = now.toTimeString().slice(0, 8);
+      ctx.fillText(`REC • ${day}-${month}-${year} ${nowStr}`, 16, 24);
 
       animId = requestAnimationFrame(render);
     }

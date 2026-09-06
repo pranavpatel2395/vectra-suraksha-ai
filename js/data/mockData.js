@@ -3,6 +3,20 @@
  * Real-time city surveillance & mobile road sensing data model
  */
 
+// Dynamic date helpers so all timestamps reflect today's date automatically every day
+export function getTodayDateStr(offsetDays = 0) {
+  const d = new Date();
+  if (offsetDays !== 0) d.setDate(d.getDate() + offsetDays);
+  return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+}
+
+export function getCurrentYear() {
+  return new Date().getFullYear();
+}
+
+const currentFormattedDate = getTodayDateStr();
+const currentYear = getCurrentYear();
+
 export const mockAreas = [
   { id: 'all', name: 'All Areas', camerasCount: 48, busesCount: 37, healthScore: 72, trafficDensity: 76, activeAlerts: 7 },
   { id: 'mg_road', name: 'MG Road', camerasCount: 8, busesCount: 6, healthScore: 78, trafficDensity: 74, activeAlerts: 1, lat: 28.6139, lng: 77.2090 },
@@ -52,7 +66,7 @@ export const mockRoadIssues = [
     detectedBy: 'BUS-07',
     lat: 28.589,
     lng: 77.062,
-    timestamp: '10:20 AM, 28 Aug 2026',
+    timestamp: `10:20 AM, ${currentFormattedDate}`,
     status: 'Unresolved',
     depthEst: '8.5 cm depth',
     surfaceArea: '0.65 sq m',
@@ -69,7 +83,7 @@ export const mockRoadIssues = [
     detectedBy: 'BUS-12',
     lat: 28.642,
     lng: 77.215,
-    timestamp: '09:50 AM, 28 Aug 2026',
+    timestamp: `09:50 AM, ${currentFormattedDate}`,
     status: 'Under Review',
     depthEst: '12-15 cm standing water',
     surfaceArea: '14.2 sq m',
@@ -86,7 +100,7 @@ export const mockRoadIssues = [
     detectedBy: 'BUS-01',
     lat: 28.627,
     lng: 77.205,
-    timestamp: '09:30 AM, 28 Aug 2026',
+    timestamp: `09:30 AM, ${currentFormattedDate}`,
     status: 'Unresolved',
     depthEst: '3.2 m gap',
     surfaceArea: 'Concrete median sheared',
@@ -103,7 +117,7 @@ export const mockRoadIssues = [
     detectedBy: 'BUS-01',
     lat: 28.615,
     lng: 77.211,
-    timestamp: '08:45 AM, 28 Aug 2026',
+    timestamp: `08:45 AM, ${currentFormattedDate}`,
     status: 'Unresolved',
     depthEst: '90% paint eroded',
     surfaceArea: 'Intersection paint faded',
@@ -120,7 +134,7 @@ export const mockRoadIssues = [
     detectedBy: 'BUS-23',
     lat: 28.658,
     lng: 77.279,
-    timestamp: '08:15 AM, 28 Aug 2026',
+    timestamp: `08:15 AM, ${currentFormattedDate}`,
     status: 'Unresolved',
     depthEst: 'Bent post / 45 deg tilt',
     surfaceArea: 'No-Entry Sign obscured',
@@ -137,7 +151,7 @@ export const mockRoadIssues = [
     detectedBy: 'BUS-23',
     lat: 28.662,
     lng: 77.284,
-    timestamp: '07:50 AM, 28 Aug 2026',
+    timestamp: `07:50 AM, ${currentFormattedDate}`,
     status: 'Unresolved',
     depthEst: '11 cm depth',
     surfaceArea: '1.2 sq m',
@@ -154,7 +168,7 @@ export const mockRoadIssues = [
     detectedBy: 'BUS-07',
     lat: 28.647,
     lng: 77.219,
-    timestamp: '07:30 AM, 28 Aug 2026',
+    timestamp: `07:30 AM, ${currentFormattedDate}`,
     status: 'Resolved',
     depthEst: 'Filled & compacted',
     surfaceArea: '0.45 sq m',
@@ -369,13 +383,13 @@ export const mockAlerts = [
 
 export const mockIncidents = [
   {
-    id: 'INC-2026-081',
+    id: `INC-${currentYear}-081`,
     type: 'Blacklisted Vehicle Spotted',
     category: 'Blacklisted Vehicle',
     source: 'CAM-07 (GT Road)',
     area: 'gt_road',
     areaName: 'GT Road',
-    timestamp: '10:23 AM, 28 Aug 2026',
+    timestamp: `10:23 AM, ${currentFormattedDate}`,
     gps: '28.645° N, 77.217° E',
     confidence: '96.2%',
     severity: 'Critical',
@@ -383,13 +397,13 @@ export const mockIncidents = [
     description: 'Vehicle UP16AB1234 flagged on Law Enforcement Watchlist. Moving Southbound towards Ring Road.'
   },
   {
-    id: 'INC-2026-080',
+    id: `INC-${currentYear}-080`,
     type: 'Hazardous Road Pothole Cluster',
     category: 'Road Hazard',
     source: 'BUS-07 (Sector-12)',
     area: 'sector_12',
     areaName: 'Sector-12',
-    timestamp: '10:20 AM, 28 Aug 2026',
+    timestamp: `10:20 AM, ${currentFormattedDate}`,
     gps: '28.589° N, 77.062° E',
     confidence: '94.7%',
     severity: 'High',
@@ -397,13 +411,13 @@ export const mockIncidents = [
     description: 'Crater on high-speed flyover descent. Work order generated for Municipal PWD department.'
   },
   {
-    id: 'INC-2026-079',
+    id: `INC-${currentYear}-079`,
     type: 'Rash / Zig-Zag Unsafe Driving',
     category: 'Rash / Unsafe Driving',
     source: 'CAM-03 (Ring Road)',
     area: 'ring_road',
     areaName: 'Ring Road',
-    timestamp: '10:05 AM, 28 Aug 2026',
+    timestamp: `10:05 AM, ${currentFormattedDate}`,
     gps: '28.581° N, 77.231° E',
     confidence: '91.8%',
     severity: 'High',
@@ -411,13 +425,13 @@ export const mockIncidents = [
     description: 'Aggressive multiple lane switching without indicators at high density flow.'
   },
   {
-    id: 'INC-2026-078',
+    id: `INC-${currentYear}-078`,
     type: 'Severe Storm Drain Overflow',
     category: 'Waterlogging',
     source: 'BUS-12 (GT Road)',
     area: 'gt_road',
     areaName: 'GT Road',
-    timestamp: '09:50 AM, 28 Aug 2026',
+    timestamp: `09:50 AM, ${currentFormattedDate}`,
     gps: '28.642° N, 77.215° E',
     confidence: '91.3%',
     severity: 'Warning',
@@ -425,13 +439,13 @@ export const mockIncidents = [
     description: 'Drainage suction truck deployed by Municipal Team 04. Road cleared.'
   },
   {
-    id: 'INC-2026-077',
+    id: `INC-${currentYear}-077`,
     type: 'Damaged Concrete Median Hazard',
     category: 'Infrastructure Deficiency',
     source: 'BUS-01 (City Center)',
     area: 'city_center',
     areaName: 'City Center',
-    timestamp: '09:30 AM, 28 Aug 2026',
+    timestamp: `09:30 AM, ${currentFormattedDate}`,
     gps: '28.627° N, 77.205° E',
     confidence: '96.1%',
     severity: 'High',
@@ -439,13 +453,13 @@ export const mockIncidents = [
     description: 'Median barrier crushed during early morning hours, protruding 0.8m into fast lane.'
   },
   {
-    id: 'INC-2026-076',
+    id: `INC-${currentYear}-076`,
     type: 'Traffic Density Surge & Gridlock',
     category: 'Traffic Event',
     source: 'CAM-02 / CAM-03',
     area: 'ring_road',
     areaName: 'Ring Road',
-    timestamp: '09:15 AM, 28 Aug 2026',
+    timestamp: `09:15 AM, ${currentFormattedDate}`,
     gps: '28.580° N, 77.230° E',
     confidence: '98.0%',
     severity: 'Critical',
