@@ -60,14 +60,14 @@ export function renderTrafficAnalyticsView(container) {
       <!-- Charts Row -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
         <!-- 24-Hour Hourly Traffic Flow Curve (8 cols) -->
-        <div class="lg:col-span-8 command-card p-4 flex flex-col justify-between min-h-[340px]">
+        <div class="lg:col-span-8 command-card p-4 flex flex-col justify-between">
           <div class="flex items-center justify-between mb-3 border-b border-command-border pb-2">
             <h2 class="text-xs font-bold text-white uppercase tracking-wide">24-Hour Hourly Vehicle Volume Flow</h2>
             <span class="text-[10px] font-mono text-slate-400">Vehicles per Hour (Fixed CCTV Aggregated)</span>
           </div>
 
-          <!-- Canvas Volume Bar Chart -->
-          <div class="relative flex-1 bg-slate-950 rounded border border-command-border p-2">
+          <!-- Canvas Volume Bar Chart with explicit locked height -->
+          <div class="relative w-full h-[250px] bg-slate-950 rounded border border-command-border p-2 overflow-hidden flex items-center justify-center">
             <canvas id="hourly-volume-canvas" class="w-full h-full block"></canvas>
           </div>
         </div>
@@ -113,46 +113,68 @@ function renderHourlyChart(container, data) {
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
 
-  const rect = canvas.getBoundingClientRect();
-  canvas.width = rect.width || 500;
-  canvas.height = rect.height || 220;
-  const w = canvas.width;
-  const h = canvas.height;
+  function draw() {
+    if (!canvas.isConnected) return;
+    const parent = canvas.parentElement;
+    const rect = parent ? parent.getBoundingClientRect() : canvas.getBoundingClientRect();
+    
+    // Explicit 1:1 pixel buffer matching container dimensions exactly
+    const w = (canvas.width = Math.max(300, Math.round(rect.width ? rect.width - 16 : 500)));
+    const h = (canvas.height = Math.round(rect.height ? rect.height - 16 : 234));
 
-  ctx.fillStyle = '#070b14';
-  ctx.fillRect(0, 0, w, h);
+    if (w <= 0 || h <= 0) return;
 
-  // Grid
-  ctx.strokeStyle = '#1e293b';
-  ctx.lineWidth = 1;
-  for (let y = 0; y < h; y += 40) {
-    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
+    ctx.fillStyle = '#070b14';
+    ctx.fillRect(0, 0, w, h);
+
+    // Grid lines
+    ctx.strokeStyle = '#1e293b';
+    ctx.lineWidth = 1;
+    for (let y = 0; y < h; y += 40) {
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(w, y);
+      ctx.stroke();
+    }
+
+    const maxVol = 2600;
+    const barWidth = Math.max(8, (w - 60) / data.length);
+
+    data.forEach((d, i) => {
+      const x = 40 + i * barWidth;
+      const barHeight = Math.max(4, (d.volume / maxVol) * (h - 50));
+      const y = h - 30 - barHeight;
+
+      // Bar Fill
+      const grad = ctx.createLinearGradient(0, y, 0, h - 30);
+      grad.addColorStop(0, '#38bdf8');
+      grad.addColorStop(1, '#1e3a8a');
+
+      ctx.fillStyle = grad;
+      ctx.fillRect(x + 4, y, Math.max(4, barWidth - 8), barHeight);
+
+      // Value on top
+      ctx.fillStyle = '#94a3b8';
+      ctx.font = '8px "JetBrains Mono", monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText(`${d.volume}`, x + barWidth / 2, y - 4);
+
+      // Hour label
+      ctx.fillStyle = '#64748b';
+      ctx.font = '9px "JetBrains Mono", monospace';
+      ctx.fillText(d.hour, x + barWidth / 2, h - 14);
+    });
   }
 
-  const maxVol = 2600;
-  const barWidth = (w - 60) / data.length;
+  // Draw once DOM layout reflow has settled
+  requestAnimationFrame(draw);
+  setTimeout(draw, 40);
 
-  data.forEach((d, i) => {
-    const x = 40 + i * barWidth;
-    const barHeight = (d.volume / maxVol) * (h - 50);
-    const y = h - 30 - barHeight;
-
-    // Bar Fill
-    const grad = ctx.createLinearGradient(0, y, 0, h - 30);
-    grad.addColorStop(0, '#38bdf8');
-    grad.addColorStop(1, '#1e3a8a');
-
-    ctx.fillStyle = grad;
-    ctx.fillRect(x + 4, y, barWidth - 8, barHeight);
-
-    // Value on top
-    ctx.fillStyle = '#94a3b8';
-    ctx.font = '8px "JetBrains Mono"';
-    ctx.textAlign = 'center';
-    ctx.fillText(`${d.volume}`, x + barWidth / 2, y - 4);
-
-    // Hour label
-    ctx.fillStyle = '#64748b';
-    ctx.fillText(d.hour, x + barWidth / 2, h - 14);
-  });
+  // ResizeObserver guarantees perfectly locked height during any viewport or layout change
+  if (window.ResizeObserver && canvas.parentElement) {
+    const ro = new ResizeObserver(() => {
+      requestAnimationFrame(draw);
+    });
+    ro.observe(canvas.parentElement);
+  }
 }
