@@ -76,7 +76,7 @@ export function renderAnprVehiclesView(container) {
                 </div>
 
                 <div class="flex gap-3 mb-2.5">
-                  <img src="${v.image}" alt="Car" class="w-24 aspect-[4/3] rounded object-cover border border-slate-800">
+                  <img src="${v.image}" alt="${v.color} ${v.type}" class="w-24 aspect-[4/3] rounded object-cover border border-slate-800" onerror="this.onerror=null;this.src='assets/images/vehicles/sedan-silver.jpg'">
                   <div class="text-[11px] font-mono space-y-0.5 text-slate-300">
                     <div>Type: <b class="text-white">${v.type}</b></div>
                     <div>Color: <b class="text-white">${v.color}</b></div>

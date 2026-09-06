@@ -57,7 +57,7 @@ export function renderVehicleIntelligence(container) {
           <div class="flex gap-3 bg-slate-950/80 rounded border border-command-border p-3 mb-3">
             <!-- Vehicle Image Preview with Plate Overlay -->
             <div class="relative w-32 aspect-[4/3] rounded overflow-hidden bg-slate-900 flex-shrink-0 border border-slate-800">
-              <img src="${vehicle.image}" alt="Tracked Vehicle" class="w-full h-full object-cover">
+              <img src="${vehicle.image}" alt="${vehicle.color} ${vehicle.type}" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='assets/images/vehicles/sedan-silver.jpg'">
               <div class="absolute bottom-1 left-1 bg-black/80 px-1.5 py-0.5 rounded font-mono text-[9px] text-yellow-400 border border-yellow-500/40">
                 ${vehicle.plateNumber}
               </div>
@@ -203,7 +203,7 @@ export function renderVehicleIntelligence(container) {
           ocrConfidence: 95.5,
           firstSeen: '09:30 AM',
           lastSeen: '10:15 AM',
-          image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=400&q=80',
+          image: 'assets/images/vehicles/sedan-silver.jpg',
           stats: { totalDistance: '10.4 km', camerasMatched: 4, journeyDuration: '45 min' },
           trajectory: [
             { camera: 'CAM-01', area: 'mg_road', areaName: 'MG Road', time: '09:30 AM', direction: 'Eastbound', confidence: 96.0, lat: 28.614, lng: 77.208 },

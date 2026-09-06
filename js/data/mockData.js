@@ -172,7 +172,7 @@ export const mockVehicles = {
     ocrConfidence: 96.2,
     firstSeen: '09:12 AM',
     lastSeen: '10:23 AM',
-    image: 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=400&q=80',
+    image: 'assets/images/vehicles/suv-white.jpg',
     stats: {
       totalDistance: '14.6 km',
       camerasMatched: 5,
@@ -195,7 +195,7 @@ export const mockVehicles = {
     ocrConfidence: 97.8,
     firstSeen: '09:45 AM',
     lastSeen: '10:10 AM',
-    image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=400&q=80',
+    image: 'assets/images/vehicles/sedan-silver.jpg',
     stats: {
       totalDistance: '9.2 km',
       camerasMatched: 3,
@@ -216,7 +216,7 @@ export const mockVehicles = {
     ocrConfidence: 98.4,
     firstSeen: '08:30 AM',
     lastSeen: '09:15 AM',
-    image: 'https://images.unsplash.com/photo-1549399578-005c03c27c60?auto=format&fit=crop&w=400&q=80',
+    image: 'assets/images/vehicles/hatchback-grey.jpg',
     stats: {
       totalDistance: '11.8 km',
       camerasMatched: 3,
@@ -237,7 +237,7 @@ export const mockVehicles = {
     ocrConfidence: 94.1,
     firstSeen: '06:10 AM',
     lastSeen: '07:45 AM',
-    image: 'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=400&q=80',
+    image: 'assets/images/vehicles/truck-blue.jpg',
     stats: {
       totalDistance: '16.5 km',
       camerasMatched: 4,
@@ -259,7 +259,7 @@ export const mockVehicles = {
     ocrConfidence: 95.9,
     firstSeen: '10:00 AM',
     lastSeen: '10:45 AM',
-    image: 'https://images.unsplash.com/photo-1542362567-b07e54358753?auto=format&fit=crop&w=400&q=80',
+    image: 'assets/images/vehicles/sedan-white.jpg',
     stats: {
       totalDistance: '8.4 km',
       camerasMatched: 3,
