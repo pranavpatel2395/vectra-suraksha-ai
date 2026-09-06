@@ -37,8 +37,8 @@ export function renderSidebar(container, currentView = 'dashboard') {
     <!-- Top Branding -->
     <div class="p-4 border-b border-command-border">
       <div class="flex items-start gap-3">
-        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center flex-shrink-0 shadow-lg shadow-blue-900/30 border border-blue-400/30">
-          <i data-lucide="shield" class="w-5 h-5 text-white"></i>
+        <div class="w-10 h-10 rounded-lg bg-slate-900/80 border border-slate-700/50 p-1 flex items-center justify-center flex-shrink-0 shadow-md shadow-blue-950/40">
+          <img src="assets/images/vectra-logo.png" alt="Vectra Logo" class="w-full h-full object-contain filter drop-shadow(0 0 6px rgba(56, 189, 248, 0.4))" />
         </div>
         <div class="flex-1 min-w-0">
           <h1 class="text-sm font-bold text-white tracking-tight leading-tight truncate">Vectra Jansadak Suraksha AI</h1>
